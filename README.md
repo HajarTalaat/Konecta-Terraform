@@ -34,6 +34,7 @@ Related files can be found in the repo.
 ![tf5](https://github.com/user-attachments/assets/3c544700-de62-48c3-bb6e-bd9d01078ec1)
 ![tf6](https://github.com/user-attachments/assets/30dec532-1123-4f6b-a900-f994e5576fbe)
 
+
 4. *Collaborate with your teammate: Since your teammate will contribute to **Arch2, find the proper way to **share the state file* and implement it.
    
 Related files can be found in the repo.
@@ -52,6 +53,37 @@ The DynamoDB table is used to lock the state file, preventing multiple users (or
 
 ![tf7](https://github.com/user-attachments/assets/5ed7647c-7648-4619-b56a-7ae53257aedc)
 ![tf8](https://github.com/user-attachments/assets/38deb1a3-387f-4c34-8c80-500b1704ef87)
+
+
+5. *Destroy Arch1* using only the Terraform command (terraform destroy) *without deleting the EC2 instance*. You are not allowed to edit any Terraform files. 
+
+The simplest approach is to remove the EC2 instance from Terraform’s state so Terraform no longer manages it—then a normal terraform destroy will leave that instance intact.
+
+Command: terraform state rm aws_instance.private_instance
+
+This tells Terraform: “Stop tracking this resource in the state file.”
+
+The EC2 instance will still exist in AWS, but Terraform no longer knows about it.
+
+Confirm the removal: terraform state list
+
+![tf9](https://github.com/user-attachments/assets/868c0204-164d-468e-b5db-73c6764c6947)
+
+
+6. *Arch1: Prevent NAT Gateway deletion*
+
+– Research and implement a method to *prevent the NAT Gateway from being deleted* even when running terraform destroy.
+
+The standard Terraform approach is to use the lifecycle block with prevent_destroy = true
+
+prevent_destroy = true tells Terraform to error out if a plan or destroy tries to remove this NAT gateway.
+
+![tf10](https://github.com/user-attachments/assets/6bd372f0-3e23-4913-9147-9e3cf709599e)
+
+
+
+
+
 
 
 
